@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+BACKSTAGE_BRANCH="$1"
+GITHUB_TOKEN="$2"
+
+echo $BACKSTAGE_BRANCH
+echo $GITHUB_TOKEN
+
+printenv

@@ -1,0 +1,18 @@
+name: "Autobackstage"
+description: "Autobackstage is a github action that delete and recreate the backstage branch to enable developers to have an always up-to-date backstage environment."
+author: "Arthur Eichelberger"
+inputs:
+  backstageBranch:
+    description: 'Branch for backstage'
+    required: false
+    default: 'backstage'
+  githubToken:
+    description: 'Github Token to allow branch deletion and creation'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.backstageBranch }}
+    - ${{ inputs.githubToken }}
+
