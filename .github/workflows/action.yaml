@@ -1,0 +1,16 @@
+name: Golang workflow
+on:
+  push:
+  pull_request:
+  create:
+    tags:
+jobs: 
+  autobackstage:
+    runs-on: ubuntu-latest
+    env:
+      BACKSTAGE_BRANCH: "backstage"
+      GITHUB_USER: "arthureichelberger"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
