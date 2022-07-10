@@ -1,0 +1,6 @@
+name: "Autobackstage"
+description: "Autobackstage is a github action that delete and recreate the backstage branch to enable developers to have an always up-to-date backstage environment."
+author: "Arthur Eichelberger"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
