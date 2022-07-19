@@ -3,7 +3,6 @@ package github
 import (
 	"bytes"
 	"context"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -17,15 +16,15 @@ import (
 
 type defaultClient struct {
 	BaseURL string
-	User    model.User
+	Token   string
 	Repo    string
 	client  http.Client
 }
 
-func NewDefaultClient(baseURL, name, token, repo string) defaultClient {
+func NewDefaultClient(baseURL, token, repo string) defaultClient {
 	return defaultClient{
 		BaseURL: baseURL,
-		User:    model.User{Name: name, Token: token},
+		Token:   token,
 		Repo:    repo,
 		client: http.Client{
 			Timeout: time.Second,
@@ -44,8 +43,7 @@ func (dc defaultClient) CreateBranch(ctx context.Context, branch, sha string) er
 		return fmt.Errorf("could not create branch")
 	}
 
-	authBasicToken := base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", dc.User.Name, dc.User.Token)))
-	req.Header.Add("Authorization", fmt.Sprintf("Basic %s", authBasicToken))
+	req.Header.Add("Authorization", fmt.Sprintf("token %s", dc.Token))
 
 	res, err := dc.client.Do(req)
 	if err != nil {
@@ -80,8 +78,7 @@ func (dc defaultClient) DeleteBranch(ctx context.Context, branch string) error {
 		return fmt.Errorf("could not create request")
 	}
 
-	authBasicToken := base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", dc.User.Name, dc.User.Token)))
-	req.Header.Add("Authorization", fmt.Sprintf("Basic %s", authBasicToken))
+	req.Header.Add("Authorization", fmt.Sprintf("token %s", dc.Token))
 
 	res, err := dc.client.Do(req)
 	if err != nil {

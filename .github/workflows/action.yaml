@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BACKSTAGE_BRANCH: "backstage"
-      GITHUB_USER: "arthureichelberger"
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3

@@ -20,7 +20,7 @@ func main() {
 	backstageBrach := env.Get("BACKSTAGE_BRANCH", "backstage")
 	gitSha := env.Get("GITHUB_SHA", "")
 
-	ghClient := github.NewDefaultClient("https://api.github.com", env.Get("GITHUB_USER", ""), env.Get("GITHUB_TOKEN", ""), repo)
+	ghClient := github.NewDefaultClient("https://api.github.com", env.Get("GITHUB_TOKEN", ""), repo)
 
 	if err := run(ctx, ghClient, backstageBrach, gitSha); err != nil {
 		log.Error().Err(err).Msg("could not execute action")
